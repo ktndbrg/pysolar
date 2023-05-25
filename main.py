@@ -57,7 +57,7 @@ class Game ():
             self.render ()
 
             # A frame has passed, tick the clock
-            self.clock.tick (10)
+            self.clock.tick (60)
 
         # Cleanup afterwards
         pygame.quit ()
@@ -92,9 +92,9 @@ class Game ():
 
                 # Increase radius
                 elif event.key == pygame.K_UP:
-                    self.planet.vinkel += 10.0
+                    self.planet.radius += 10.0
                 elif event.key == pygame.K_DOWN:
-                    self.planet.vinkel -= 10.0
+                    self.planet.radius -= 10.0
 
     """
         Update the game logic
