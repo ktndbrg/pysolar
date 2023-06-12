@@ -15,18 +15,18 @@ class Planet (Object):
 		hastighet = 1.5,		# speed of rotation
 		skalering = None		# scaling the image
 	"""
-	def __init__ (self, bilde = "planet.png", vinkel = math.pi, radius = 50.0, hastighet = 1.5, skalering = None):
+	def __init__ (self, image = "planet.png", angle = math.pi, radius = 50.0, speed = 1.5, scale = None):
 		# Initialize the Object
-		super().__init__ (bilde = bilde, skalering = skalering)
+		super().__init__ (image = image, scale = scale)
 
 		# Radius of the orbit
 		self.radius = 250
 
 		# The starting angle
-		self.vinkel = math.pi/4
+		self.angle = math.pi/4
 
 		# Speed of the planet
-		self.hastighet = 0.25
+		self.speed = 0.25
 
 	"""
 		This method is called every frame.
@@ -36,18 +36,18 @@ class Planet (Object):
 	"""
 	def update (self, clock, orbit):
 		# Update the angle of the planet
-		self.vinkel += self.hastighet * (clock.get_time () / 1000.0)
+		self.angle += self.speed * (clock.get_time () / 1000.0)
 		
 		# We can reset the rotation because "mathematics". Angle = Angle +- 2*n*pi (n is a whole number)
-		if self.vinkel > 2*math.pi:
-			self.vinkel -= 2*math.pi
-		elif self.vinkel < 0.0:
-			self.vinkel += 2*math.pi
+		if self.angle > 2*math.pi:
+			self.angle -= 2*math.pi
+		elif self.angle < 0.0:
+			self.angle += 2*math.pi
 
 		# Update the position based on the angle.
 		# This is Trigonometry (Mathematics)
 		# x**2 + y**2 = r**2, where r is the radius of the circle.
-		self.posisjon = [orbit[0] + self.radius * math.cos (self.vinkel), orbit[1] - self.radius * math.sin (self.vinkel)]
+		self.position = [orbit[0] + self.radius * math.cos (self.angle), orbit[1] - self.radius * math.sin (self.angle)]
 
 	"""
 		This method will render the planet onto the game-screen
@@ -56,7 +56,7 @@ class Planet (Object):
 		# Create a temporary sprite, we rotate this temp, and display it.
 		# This makes it easier to rotate on the next frame.
 		temp = self.sprite
-		self.sprite = pygame.transform.rotate (self.sprite, (self.vinkel - (math.pi / 2.0)) * 180 / math.pi)
+		self.sprite = pygame.transform.rotate (self.sprite, (self.angle - (math.pi / 2.0)) * 180 / math.pi)
 		# Use the Object method for rendering
 		super().render(screen)
 		self.sprite = temp

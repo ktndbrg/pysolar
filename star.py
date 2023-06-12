@@ -10,7 +10,7 @@ class Star (Object):
 	"""
 		Initialize the Star
 	"""
-	def __init__ (self, posisjon, skalering = None):
+	def __init__ (self, position, scale = None):
 		# This calls the Object constructor
-		super().__init__ (posisjon = posisjon, bilde = "star.png", skalering = skalering)
+		super().__init__ (position = position, image = "star.png", scale = scale)
 

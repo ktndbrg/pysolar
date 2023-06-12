@@ -23,15 +23,15 @@ class Game ():
         pygame.display.set_caption ("NordNorsk Vitensenter - Kodeklubb: Planet Simulation")
         
         # Create a Star object
-        self.star = Star (posisjon = [x * 0.5 for x in self.screen.get_size ()],
-                        skalering = [x * 0.15 for x in self.screen.get_size ()])
+        self.star = Star (position = [x * 0.5 for x in self.screen.get_size ()],
+                        scale = [x * 0.15 for x in self.screen.get_size ()])
 
         # Create a Planet object
-        self.planet = Planet (bilde = "planet.png",
-                                vinkel = 0,
+        self.planet = Planet (image = "planet.png",
+                                angle = 0,
                                 radius = 250,
-                                hastighet = 0.25,
-                                skalering = (64, 64))
+                                speed = 0.25,
+                                scale = (64, 64))
 
         # We need to track time, with a clock
         self.clock = pygame.time.Clock ()
@@ -86,9 +86,9 @@ class Game ():
 
                 # Speedup
                 elif event.key == pygame.K_LEFT:
-                    self.planet.hastighet += 1.0
+                    self.planet.speed += 1.0
                 elif event.key == pygame.K_RIGHT:
-                    self.planet.hastighet -= 1.0
+                    self.planet.speed -= 1.0
 
                 # Increase radius
                 elif event.key == pygame.K_UP:
@@ -101,7 +101,7 @@ class Game ():
     """
     def update (self):
         # Update the planet
-        self.planet.update (self.clock, self.star.posisjon)
+        self.planet.update (self.clock, self.star.position)
 
     """
         Render the graphics
