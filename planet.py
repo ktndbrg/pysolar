@@ -20,13 +20,13 @@ class Planet (Object):
 		super().__init__ (image = image, scale = scale)
 
 		# Radius of the orbit
-		self.radius = 250
+		self.radius = radius
 
 		# The starting angle
-		self.angle = math.pi/4
+		self.angle = angle
 
 		# Speed of the planet
-		self.speed = 0.25
+		self.speed = speed
 
 	"""
 		This method is called every frame.

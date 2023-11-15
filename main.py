@@ -20,18 +20,25 @@ class Game ():
         # Create the application window
         self.screen = pygame.display.set_mode ((800, 800), flags = pygame.SCALED)
         # Set the Title of the window
-        pygame.display.set_caption ("NordNorsk Vitensenter - Kodeklubb: Planet Simulation")
+        pygame.display.set_caption ("NordNorsk Vitensenter - Kodeklubb")
         
         # Create a Star object
         self.star = Star (position = [x * 0.5 for x in self.screen.get_size ()],
                         scale = [x * 0.15 for x in self.screen.get_size ()])
 
         # Create a Planet object
-        self.planet = Planet (image = "planet.png",
-                                angle = 0,
+        self.planets = [Planet (image = "planet.png",
+                                angle = random.random() * 2.0 * math.pi,
                                 radius = 250,
-                                speed = 0.25,
-                                scale = (64, 64))
+                                speed = random.random(),
+                                scale = (64, 64)) for _ in range (0, 5)]
+        
+        # Create moons
+        self.moons = [Planet (image = "planet2.png",
+                                angle = random.random() * 2.0 * math.pi,
+                                radius = 100,
+                                speed = 10 * random.random(),
+                                scale = (16, 16)) for _ in range (0, 5)]
 
         # We need to track time, with a clock
         self.clock = pygame.time.Clock ()
@@ -53,7 +60,7 @@ class Game ():
             # Update the game logic and physics
             self.update ()
 
-            # Render all the visuals/pictures
+            # Render all the visuals
             self.render ()
 
             # A frame has passed, tick the clock
@@ -86,22 +93,31 @@ class Game ():
 
                 # Speedup
                 elif event.key == pygame.K_LEFT:
-                    self.planet.speed += 1.0
+                    for planet in self.planets:
+                        planet.speed *= 1.5
                 elif event.key == pygame.K_RIGHT:
-                    self.planet.speed -= 1.0
+                    for planet in self.planets:
+                        planet.speed *= 0.75
 
                 # Increase radius
                 elif event.key == pygame.K_UP:
-                    self.planet.radius += 10.0
+                    for planet in self.planets:
+                        planet.radius *= 1.2
                 elif event.key == pygame.K_DOWN:
-                    self.planet.radius -= 10.0
+                    for planet in self.planets:
+                        planet.radius *= 0.8
 
     """
         Update the game logic
     """
     def update (self):
-        # Update the planet
-        self.planet.update (self.clock, self.star.position)
+        # Update the planets
+        #for planet in self.planets:
+        #    planet.update (self.clock, self.star.position)
+
+        for planet, moon in zip(self.planets, self.moons):
+            planet.update (self.clock, self.star.position)
+            moon.update (self.clock, planet.position)
 
     """
         Render the graphics
@@ -115,7 +131,11 @@ class Game ():
         self.star.render (self.screen)
 
         # Render the planets
-        self.planet.render (self.screen)
+        for planet in self.planets:
+            planet.render (self.screen)
+
+        for moon in self.moons:
+            moon.render (self.screen)
 
         # Flip the table
         pygame.display.flip ()
