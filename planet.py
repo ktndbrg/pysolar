@@ -38,7 +38,7 @@ class Planet (Object):
 		# Update the angle of the planet
 		self.angle += self.speed * (clock.get_time () / 1000.0)
 		
-		# We can reset the rotation because "mathematics". Angle = Angle +- 2*n*pi (n is a whole number)
+		# We can reset the rotation because mathematics is neat. Angle = Angle +- 2*n*pi (n is a whole number)
 		if self.angle > 2*math.pi:
 			self.angle -= 2*math.pi
 		elif self.angle < 0.0:
