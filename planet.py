@@ -9,11 +9,11 @@ from object import Object
 class Planet (Object):
 	"""
 		Initialize the Planet
-		bilde = "planet.png"	# filename of the sprite to use
-		vinkel = 0.0,			# starting position
+		image = "planet.png"	# filename of the sprite to use
+		angle = 0.0,			# starting position
 		radius = 50.0,			# distance from the star
-		hastighet = 1.5,		# speed of rotation
-		skalering = None		# scaling the image
+		speed = 1.5,			# speed of rotation
+		scale = None			# scaling the image
 	"""
 	def __init__ (self, image = "planet.png", angle = math.pi, radius = 50.0, speed = 1.5, scale = None):
 		# Initialize the Object
